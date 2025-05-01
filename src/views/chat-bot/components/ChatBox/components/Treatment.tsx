@@ -1,6 +1,6 @@
 import { Alert } from '@/components/ui';
-import { useUserStore } from '@/store/userStore';
-import { useHcfHomeStore } from '@/views/HCFS/Home/store/hcfHomeStore';
+// import { useUserStore } from '@/store/userStore';
+// import { useHcfHomeStore } from '@/views/HCFS/Home/store/hcfHomeStore';
 import React, { useEffect, useRef, useState } from 'react';
 import { BiCalendar, BiCalendarCheck, BiCheckCircle, BiClipboard } from 'react-icons/bi';
 import { BsActivity } from 'react-icons/bs';
@@ -11,10 +11,10 @@ import { LuFileSearch } from 'react-icons/lu';
 const Treatment = () => {
 
     const scrollRef = useRef(null);
-    const { userDetails } = useUserStore()
+    // const { userDetails } = useUserStore()
 
     const [active, setActive] = useState(0)
-    const { claimBarStatus } = useHcfHomeStore()
+    // const { claimBarStatus } = useHcfHomeStore()
 
     const steps = [
         {
@@ -58,21 +58,21 @@ const Treatment = () => {
         }
     };
 
-    useEffect(() => {
-        if (userDetails?.stage) {
-            const stage = userDetails?.stage.replace('_', ' ')
-                .split(' ')
-                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                .join(' ');
-            const checkActive = steps.findIndex((data) => data.title == stage);
+    // useEffect(() => {
+    //     if (userDetails?.stage) {
+    //         const stage = userDetails?.stage.replace('_', ' ')
+    //             .split(' ')
+    //             .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    //             .join(' ');
+    //         const checkActive = steps.findIndex((data) => data.title == stage);
 
-            if (checkActive === -1) {
-                setActive(0)
-            } else {
-                setActive(checkActive)
-            }
-        }
-    }, [userDetails])
+    //         if (checkActive === -1) {
+    //             setActive(0)
+    //         } else {
+    //             setActive(checkActive)
+    //         }
+    //     }
+    // }, [userDetails])
     return (
 
         <div className="bg-white rounded-xl shadow-sm border w-full overflow-x-auto mb-1">
@@ -92,7 +92,7 @@ const Treatment = () => {
                 </div>
             </div>
 
-            {
+            {/* {
                     claimBarStatus && (
                         <div className=' mb-1'>
                             <Alert type='success' className='!rounded-[5px] py-1 text-[12px] mx-2'>
@@ -100,7 +100,7 @@ const Treatment = () => {
                             </Alert>
                         </div>
                     )
-                }
+                } */}
             <div
                 ref={scrollRef} className='max-w-full overflow-y-hidden overflow-x-auto mb-2'>
                 <div

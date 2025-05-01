@@ -6,7 +6,7 @@ import Logo from '@/components/template/Logo'
 import useResponsive from '@/utils/hooks/useResponsive'
 import { useAuth } from '@/auth'
 import ClaimPopup from '@/components/shared/ClaimPopup'
-import { useUserStore } from '@/store/userStore'
+// import { useUserStore } from '@/store/userStore'
 import { useHcfHomeStore } from '../store/hcfHomeStore'
 import UserDropdown from '@/components/template/UserProfileDropdown'
 import { useAuthStore } from '@/components/layouts/AuthLayout/store/useAuthStore'
@@ -17,7 +17,7 @@ interface TopBarProps {}
 const TopBar: React.FC<TopBarProps> = () => {
     const { smaller } = useResponsive()
     const { authenticated } = useAuth()
-    const { userDetails } = useUserStore()
+    // const { userDetails } = useUserStore()
     const { setClaimBarStatus } = useHcfHomeStore()
     const navigate = useNavigate()
     const { hcfData } = useAuthStore()
@@ -32,32 +32,32 @@ const TopBar: React.FC<TopBarProps> = () => {
         />,
     )
 
-    useEffect(() => {
-        if (userDetails?.medicalInfo?.medicalReports?.length > 0) {
-            // && userDetails?.targetedTreatment
-            setClaimElement(
-                <Button
-                    onClick={() => {
-                        localStorage.setItem('claimed', 'yes')
+    // useEffect(() => {
+    //     if (userDetails?.medicalInfo?.medicalReports?.length > 0) {
+    //         // && userDetails?.targetedTreatment
+    //         setClaimElement(
+    //             <Button
+    //                 onClick={() => {
+    //                     localStorage.setItem('claimed', 'yes')
 
-                        toast.push(
-                            <Notification
-                                title={'Successfully added to your account'}
-                                type={'success'}
-                            >
-                                100$ successfully added to your account
-                            </Notification>,
-                        )
-                        setClaimBarStatus(true)
-                        navigate(`/chat-bot`)
-                    }}
-                    className="!py-1 !px-3 !h-auto bg-white hover:bg-transparent rounded-full md:rounded-xl md:text-blackColor hover:text-white border-[1px] border-transparent hover:border-white font-semibold text-[10.82px] text-nowrap"
-                >
-                    Claim Now
-                </Button>,
-            )
-        }
-    }, [userDetails])
+    //                     toast.push(
+    //                         <Notification
+    //                             title={'Successfully added to your account'}
+    //                             type={'success'}
+    //                         >
+    //                             100$ successfully added to your account
+    //                         </Notification>,
+    //                     )
+    //                     setClaimBarStatus(true)
+    //                     navigate(`/chat-bot`)
+    //                 }}
+    //                 className="!py-1 !px-3 !h-auto bg-white hover:bg-transparent rounded-full md:rounded-xl md:text-blackColor hover:text-white border-[1px] border-transparent hover:border-white font-semibold text-[10.82px] text-nowrap"
+    //             >
+    //                 Claim Now
+    //             </Button>,
+    //         )
+    //     }
+    // }, [userDetails])
 
     return (
         <header className="bg-white border-gray-200">

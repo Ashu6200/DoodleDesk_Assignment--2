@@ -1,138 +1,138 @@
-import { useEffect, useState } from 'react'
-import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
-import ChatHistory from './ChatHistory'
-import { usGenerativeChatStore } from '../store/generativeChatStore'
-import useDebounce from '@/utils/hooks/useDebounce'
-import classNames from '@/utils/classNames'
-import { TbSearch } from 'react-icons/tb'
-import type { ChangeEvent } from 'react'
-import type { CardProps } from '@/components/ui/Card'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSessionUser } from '@/store/authStore'
-import { useUserStore } from '@/store/userStore'
-import AppointmentPopup from '@/components/shared/AppointmentPopup'
-import UploadMedicalReports from '@/components/shared/UploadMedicalReports'
-import { apiGetPatientAppointment } from '@/services/AppointmentService'
-import useSWR from 'swr'
-import Loading from '@/components/shared/Loading'
-import { Alert, Badge } from '@/components/ui'
-import TextEllipse from '@/components/ui/TextEllipse'
-import { useAuthStore } from '@/components/layouts/AuthLayout/store/useAuthStore'
-import { useHcfHomeStore } from '@/views/HCFS/Home/store/hcfHomeStore'
-import { useAppointmentListStore } from '@/views/Appointments/store/appointmentListStore'
-import useResponsive from '@/utils/hooks/useResponsive'
-import SkeletonLoader from '@/components/shared/SkeletonLoader'
-import { useAuth } from '@/auth'
-import { FiHelpCircle, FiUser } from 'react-icons/fi'
-import AppointmentsIcon from '@/assets/svg/AppointmentsIcon'
-import TreatmentPlanIcon from '@/assets/svg/TreatmentPlanIcon'
-import MedicalInfoIcon from '@/assets/svg/MedicalInfoIcon'
-import TravelDetailsIcon from '@/assets/svg/TravelDetailsIcon'
-import OtherDetailsIcon from '@/assets/svg/OtherDetailsIcon'
+// import { useEffect, useState } from 'react'
+// import Card from '@/components/ui/Card'
+// import Button from '@/components/ui/Button'
+// import ChatHistory from './ChatHistory'
+// import { usGenerativeChatStore } from '../store/generativeChatStore'
+// import useDebounce from '@/utils/hooks/useDebounce'
+// import classNames from '@/utils/classNames'
+// import { TbSearch } from 'react-icons/tb'
+// import type { ChangeEvent } from 'react'
+// import type { CardProps } from '@/components/ui/Card'
+// import { Link, useNavigate } from 'react-router-dom'
+// import { useSessionUser } from '@/store/authStore'
+// import { useUserStore } from '@/store/userStore'
+// import AppointmentPopup from '@/components/shared/AppointmentPopup'
+// import UploadMedicalReports from '@/components/shared/UploadMedicalReports'
+// import { apiGetPatientAppointment } from '@/services/AppointmentService'
+// import useSWR from 'swr'
+// import Loading from '@/components/shared/Loading'
+// import { Alert, Badge } from '@/components/ui'
+// import TextEllipse from '@/components/ui/TextEllipse'
+// import { useAuthStore } from '@/components/layouts/AuthLayout/store/useAuthStore'
+// import { useHcfHomeStore } from '@/views/HCFS/Home/store/hcfHomeStore'
+// import { useAppointmentListStore } from '@/views/Appointments/store/appointmentListStore'
+// import useResponsive from '@/utils/hooks/useResponsive'
+// import SkeletonLoader from '@/components/shared/SkeletonLoader'
+// import { useAuth } from '@/auth'
+// import { FiHelpCircle, FiUser } from 'react-icons/fi'
+// import AppointmentsIcon from '@/assets/svg/AppointmentsIcon'
+// import TreatmentPlanIcon from '@/assets/svg/TreatmentPlanIcon'
+// import MedicalInfoIcon from '@/assets/svg/MedicalInfoIcon'
+// import TravelDetailsIcon from '@/assets/svg/TravelDetailsIcon'
+// import OtherDetailsIcon from '@/assets/svg/OtherDetailsIcon'
 
 type ChatSideNavProps = Pick<CardProps, 'className' | 'bodyClass'> & {
     onClick?: () => void
 }
 
-const statusColors = {
-    inquiry: 'bg-gray-400',         // Neutral gray for inquiry
-    planning: 'bg-blue-400',        // Blue for planning
-    post_treatment: 'bg-purple-500',// Purple for post-treatment
-    assessment: 'bg-yellow-400',    // Yellow for assessment
-    completed: 'bg-green-500',      // Green for completed
-    scheduled: 'bg-teal-500',       // Teal for scheduled
-    in_treatment: 'bg-red-500',     // Red for in-treatment
-};
+// const statusColors = {
+//     inquiry: 'bg-gray-400',         // Neutral gray for inquiry
+//     planning: 'bg-blue-400',        // Blue for planning
+//     post_treatment: 'bg-purple-500',// Purple for post-treatment
+//     assessment: 'bg-yellow-400',    // Yellow for assessment
+//     completed: 'bg-green-500',      // Green for completed
+//     scheduled: 'bg-teal-500',       // Teal for scheduled
+//     in_treatment: 'bg-red-500',     // Red for in-treatment
+// };
 
 const ChatSideNav = ({ className, bodyClass, onClick }: ChatSideNavProps) => {
-    const [queryText, setQueryText] = useState('')
-    const user = useSessionUser(state => state.user);
-    const [uploadReportPopupStatus, setUploadReportPopupStatus] = useState(false)
-    const { userDetails } = useUserStore()
-    const { hcfData } = useAuthStore()
-    const { smaller } = useResponsive()
+    // const [queryText, setQueryText] = useState('')
+    // const user = useSessionUser(state => state.user);
+    // const [uploadReportPopupStatus, setUploadReportPopupStatus] = useState(false)
+    // const { userDetails } = useUserStore()
+    // const { hcfData } = useAuthStore()
+    // const { smaller } = useResponsive()
 
-    const { setAppointmentList, appointmentList } = useAppointmentListStore()
-    const [data, setData] = useState([])
+    // const { setAppointmentList, appointmentList } = useAppointmentListStore()
+    // const [data, setData] = useState([])
 
-    const navigate = useNavigate();
-    const { authenticated } = useAuth()
+    // const navigate = useNavigate();
+    // const { authenticated } = useAuth()
 
-    const { setSelectedConversation, setSuggestedQuestions, setConversationMessages } = usGenerativeChatStore()
+    // const { setSelectedConversation, setSuggestedQuestions, setConversationMessages } = usGenerativeChatStore()
 
-    function handleDebounceFn(e: ChangeEvent<HTMLInputElement>) {
-        setQueryText?.(e.target.value)
-    }
+    // function handleDebounceFn(e: ChangeEvent<HTMLInputElement>) {
+    //     setQueryText?.(e.target.value)
+    // }
 
-    const debounceFn = useDebounce(handleDebounceFn, 500)
+    // const debounceFn = useDebounce(handleDebounceFn, 500)
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        debounceFn(e)
-    }
+    // const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //     debounceFn(e)
+    // }
 
-    const handleNewChat = () => {
-        setSelectedConversation('')
-        setSuggestedQuestions([])
-        setConversationMessages([])
-        navigate(`/chat-bot`)
-        // onClick?.()
-    }
-
-
-    const { data: appointmentNewData, isLoading } = useSWR(
-        [`/api/appointments/${user.authId}`],
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        ([_]) =>
-            apiGetPatientAppointment({ pageIndex: 1, pageSize: 4, query: '' }),
-        {
-            revalidateOnFocus: false,
-        },
-    )
-
-    useEffect(() => {
-        if (appointmentNewData?.data?.length > appointmentList?.length) {
-            setAppointmentList(appointmentNewData.data)
-        }
-    }, [appointmentNewData])
+    // const handleNewChat = () => {
+    //     setSelectedConversation('')
+    //     setSuggestedQuestions([])
+    //     setConversationMessages([])
+    //     navigate(`/chat-bot`)
+    //     // onClick?.()
+    // }
 
 
-    useEffect(() => {
-        setData(appointmentList.slice(0, 4))
-    }, [appointmentList])
+    // const { data: appointmentNewData, isLoading } = useSWR(
+    //     [`/api/appointments/${user.authId}`],
+    //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    //     ([_]) =>
+    //         apiGetPatientAppointment({ pageIndex: 1, pageSize: 4, query: '' }),
+    //     {
+    //         revalidateOnFocus: false,
+    //     },
+    // )
 
-    const [historyVH, setHistoryVH] = useState(0)
+    // useEffect(() => {
+    //     if (appointmentNewData?.data?.length > appointmentList?.length) {
+    //         setAppointmentList(appointmentNewData.data)
+    //     }
+    // }, [appointmentNewData])
 
-    useEffect(() => {
-        const firstCard = document.querySelector('.short-cart-menu');
-        const handleVh = () => {
-            if (firstCard) {
-                const heightInPx = firstCard.offsetHeight;
-                // Use a more stable way to calculate vh
-                const vh = (heightInPx / document.documentElement.clientHeight) * 100;
 
-                if (smaller.lg) {
-                    setHistoryVH(100 - vh + 8);
-                } else {
-                    setHistoryVH(100 - vh);
-                }
-            }
-        };
+    // useEffect(() => {
+    //     setData(appointmentList.slice(0, 4))
+    // }, [appointmentList])
 
-        const handleResize = () => {
-            requestAnimationFrame(handleVh); // Avoid layout thrashing
-        };
+    // const [historyVH, setHistoryVH] = useState(0)
 
-        handleVh(); // Initial call
+    // useEffect(() => {
+    //     const firstCard = document.querySelector('.short-cart-menu');
+    //     const handleVh = () => {
+    //         if (firstCard) {
+    //             const heightInPx = firstCard.offsetHeight;
+    //             // Use a more stable way to calculate vh
+    //             const vh = (heightInPx / document.documentElement.clientHeight) * 100;
 
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [data, smaller.lg]);
+    //             if (smaller.lg) {
+    //                 setHistoryVH(100 - vh + 8);
+    //             } else {
+    //                 setHistoryVH(100 - vh);
+    //             }
+    //         }
+    //     };
+
+    //     const handleResize = () => {
+    //         requestAnimationFrame(handleVh); // Avoid layout thrashing
+    //     };
+
+    //     handleVh(); // Initial call
+
+    //     window.addEventListener('resize', handleResize);
+    //     return () => window.removeEventListener('resize', handleResize);
+    // }, [data, smaller.lg]);
 
 
     return (
         <div className='flex flex-col gap-y-2 h-full mt-[1%] !sticky top-[10px]'>
-            <Card bodyClass='px-3 short-cart-menu' className='rounded-[5px] xl:max-w-[320px]'>
+            {/* <Card bodyClass='px-3 short-cart-menu' className='rounded-[5px] xl:max-w-[320px]'>
 
                 <div className='flex mb-[10px] items-center gap-x-[10px]'>
                     <p>Stage:</p>
@@ -265,7 +265,7 @@ const ChatSideNav = ({ className, bodyClass, onClick }: ChatSideNavProps) => {
                     }
                     {uploadReportPopupStatus && <UploadMedicalReports setPopupStatus={setUploadReportPopupStatus} />}
                 </div>
-            </Card>
+            </Card> */}
         </div>
     )
 }

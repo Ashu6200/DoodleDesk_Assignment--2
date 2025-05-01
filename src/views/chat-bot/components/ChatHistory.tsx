@@ -1,15 +1,15 @@
-import { Fragment, useEffect } from 'react'
+import {  useEffect } from 'react'
 import ScrollBar from '@/components/ui/ScrollBar'
-import ChatHistoryItem from './ChatHistoryItem'
+// import ChatHistoryItem from './ChatHistoryItem'
 import { usGenerativeChatStore } from '../store/generativeChatStore'
 
 import useSWR from 'swr'
-import type { AllConversationResponse, GetChatHistoryResponse } from '../types'
-import { apiGetConversation } from '@/services/ConversationService'
+import type { AllConversationResponse, } from '../types'
+// import { apiGetConversation } from '@/services/ConversationService'
 import { useSessionUser } from '@/store/authStore'
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate,  useSearchParams } from 'react-router-dom'
 import { useAuth } from '@/auth'
-import SkeletonLoader from '@/components/shared/SkeletonLoader'
+// import SkeletonLoader from '@/components/shared/SkeletonLoader'
 import { Button } from '@/components/ui'
 import useResponsive from '@/utils/hooks/useResponsive'
 import { useAuthStore } from '@/components/layouts/AuthLayout/store/useAuthStore'
@@ -144,7 +144,7 @@ const ChatHistory = ({ queryText = '', onClick, vh }: ChatHistoryProps) => {
             {
                 (
                     <div className="flex flex-col gap-1 py-1 px-2 pb-[150px]">
-                        {isLoading ? (
+                        {/* {isLoading ? (
                             defaultSkeletonNumber.map((item, i) => (
                                 <div key={i} className='bg-gray-100 w-[95%] mx-auto px-2 py-1'>
                                     <SkeletonLoader height={15} className='' />
@@ -182,7 +182,7 @@ const ChatHistory = ({ queryText = '', onClick, vh }: ChatHistoryProps) => {
                                     New chat
                                 </Button>
                             )
-                        }
+                        } */}
                     </div>
                 )
             }

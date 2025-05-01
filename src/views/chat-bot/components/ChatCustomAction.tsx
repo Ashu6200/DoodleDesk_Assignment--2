@@ -8,7 +8,7 @@ import { Form, FormItem } from '@/components/ui/Form'
 import Dialog from '@/components/ui/Dialog'
 import Tooltip from '@/components/ui/Tooltip'
 import classNames from '@/utils/classNames'
-import AppointmentPopup from '@/components/shared/AppointmentPopup'
+// import AppointmentPopup from '@/components/shared/AppointmentPopup'
 import { TbThumbDown, TbThumbDownFilled, TbThumbUp, TbThumbUpFilled } from 'react-icons/tb'
 
 type ChatCustomActionProps = {
@@ -169,7 +169,7 @@ const ChatCustomAction = ({ content }: ChatCustomActionProps) => {
                 </Tooltip>
 
                 <Tooltip title="Book Appointment" placement="bottom">
-                    <AppointmentPopup
+                    {/* <AppointmentPopup
                         buttonChildren={
                             <div
                                 className={classNames(
@@ -195,7 +195,7 @@ const ChatCustomAction = ({ content }: ChatCustomActionProps) => {
                                 </svg>
                             </div>
                         }
-                    />
+                    /> */}
                 </Tooltip>
             </div>
 

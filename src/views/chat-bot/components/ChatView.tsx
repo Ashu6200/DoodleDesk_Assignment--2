@@ -7,20 +7,20 @@ import ChatCustomAction from './ChatCustomAction'
 import { usGenerativeChatStore } from '../store/generativeChatStore'
 import useChatSend from '../hooks/useChatSend'
 import type { ScrollBarRef } from '@/views/chat-bot/components/ChatBox'
-import { apiGetAllMessage, apiGetAllPublicMessage } from '@/services/MessageService'
-import { AllMessageResponse } from '../types'
+// import { apiGetAllMessage, apiGetAllPublicMessage } from '@/services/MessageService'
+// import { AllMessageResponse } from '../types'
 import { generateLLMChatHistory, transformMessages } from '../utils'
 import { useAuth } from '@/auth'
-import PatientSignUpPopup from '@/views/auth/PatientSignUp/Popup'
+// import PatientSignUpPopup from '@/views/auth/PatientSignUp/Popup'
 import { useLocation, useSearchParams } from 'react-router-dom'
-import AppointmentPopup from '@/components/shared/AppointmentPopup'
+// import AppointmentPopup from '@/components/shared/AppointmentPopup'
 import staticChats from '../static-chats/index.json'
 import { Notification, toast } from '@/components/ui'
-import { apiGetSuggestChatForConversation } from '@/services/SuggestionQuestion'
+// import { apiGetSuggestChatForConversation } from '@/services/SuggestionQuestion'
 import useResponsive from '@/utils/hooks/useResponsive'
-import EnvConfig from '@/configs/env.config'
+// import EnvConfig from '@/configs/env.config'
 import { useAuthStore } from '@/components/layouts/AuthLayout/store/useAuthStore'
-import { useAppointmentPopup } from '@/utils/hooks/useAppointmentPopup'
+// import { useAppointmentPopup } from '@/utils/hooks/useAppointmentPopup'
 
 const ChatView = () => {
     const scrollRef = useRef<ScrollBarRef>(null)
@@ -50,15 +50,15 @@ const ChatView = () => {
     const { smaller } = useResponsive()
     const { hcfData } = useAuthStore()
     const { pathname } = useLocation()
-    const {
-        isPopupOpen: appointMentPopupStatus,
-        setIsPopupOpen: setAppointmentPopupStatus,
-        appointmentData: { doctorName, doctorProfile, hospitalName, hospitalProfile },
-        useButtonListeners,
-        handleDoctorButtonClick,
-        handleHospitalButtonClick,
-        setAppointmentData
-    } = useAppointmentPopup();
+    // const {
+    //     isPopupOpen: appointMentPopupStatus,
+    //     setIsPopupOpen: setAppointmentPopupStatus,
+    //     appointmentData: { doctorName, doctorProfile, hospitalName, hospitalProfile },
+    //     useButtonListeners,
+    //     handleDoctorButtonClick,
+    //     handleHospitalButtonClick,
+    //     setAppointmentData
+    // } = useAppointmentPopup();
 
     useEffect(() => {
         console.log("searchParams.get('id')searchParams.get('id')", searchParams.get('id'));
@@ -86,15 +86,15 @@ const ChatView = () => {
                 let response = {}
 
                 if (pathname.includes('public')) {
-                    response =
-                        await apiGetAllPublicMessage<AllMessageResponse>(
-                            selectedConversation,
-                        )
+                    // response =
+                    //     await apiGetAllPublicMessage<AllMessageResponse>(
+                    //         selectedConversation,
+                    //     )
                 } else {
-                    response =
-                        await apiGetAllMessage<AllMessageResponse>(
-                            selectedConversation,
-                        )
+                    // response =
+                    //     await apiGetAllMessage<AllMessageResponse>(
+                    //         selectedConversation,
+                    //     )
                 }
                 const llmChatHistory = generateLLMChatHistory(
                     response.data.messages,
@@ -106,22 +106,22 @@ const ChatView = () => {
                 setLoading(false)
 
                 setConversationMessages(transformedMessages)
-                if (!pathname.includes('public')) {
-                    const suggestionResponse =
-                        await apiGetSuggestChatForConversation({
-                            id: selectedConversation,
-                            patientId: user.userId || user.authId,
-                        })
-                    if (
-                        suggestionResponse?.success &&
-                        suggestionResponse?.data?.suggestedQuestions
-                    ) {
-                        setSuggestedQuestions(
-                            suggestionResponse?.data?.suggestedQuestions,
-                        )
-                    }
-                    console.log('suggestionResponse', suggestionResponse)
-                }
+                // if (!pathname.includes('public')) {
+                //     const suggestionResponse =
+                //         await apiGetSuggestChatForConversation({
+                //             id: selectedConversation,
+                //             patientId: user.userId || user.authId,
+                //         })
+                //     if (
+                //         suggestionResponse?.success &&
+                //         suggestionResponse?.data?.suggestedQuestions
+                //     ) {
+                //         setSuggestedQuestions(
+                //             suggestionResponse?.data?.suggestedQuestions,
+                //         )
+                //     }
+                //     console.log('suggestionResponse', suggestionResponse)
+                // }
             } catch (error) {
                 console.error('Error conversation fetching messages:', error)
                 const timeOut = setTimeout(() => {
@@ -305,8 +305,8 @@ const ChatView = () => {
         scrollToBottom()
     }
 
-    useButtonListeners(['.styled-button.doctor-btn', '.styled-button.doctor'], handleDoctorButtonClick);
-    useButtonListeners(['.styled-button.hospital-btn', '.styled-button.hospital'], handleHospitalButtonClick);
+    // useButtonListeners(['.styled-button.doctor-btn', '.styled-button.doctor'], handleDoctorButtonClick);
+    // useButtonListeners(['.styled-button.hospital-btn', '.styled-button.hospital'], handleHospitalButtonClick);
 
 
 
@@ -381,7 +381,7 @@ const ChatView = () => {
             className={`flex-1 rounded-none`}
             bodyClass="h-full rounded-none !p-0 !pb-[71px]"
         >
-            {appointMentPopupStatus ? (
+            {/* {appointMentPopupStatus ? (
                 <AppointmentPopup
                     setDoctorName={setDoctorName}
                     doctorProfile={doctorProfile}
@@ -394,10 +394,10 @@ const ChatView = () => {
                 />
             ) : (
                 <></>
-            )}
+            )} */}
             {!authenticated && showLoginPopup ? (
                 <div className="fixed left-0 top-0 w-full h-full">
-                    <PatientSignUpPopup />
+                    {/* <PatientSignUpPopup /> */}
                 </div>
             ) : (
                 <></>
